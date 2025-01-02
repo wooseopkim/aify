@@ -4,7 +4,7 @@ This dead simple library lets humans mock machines that mock humans. Forget abou
 
 ### Demo
 
-You can chat with this fake AI [here](https://wooseopkim.github.io/aify/demo).
+You can chat with this fake AI [here](https://wooseopkim.github.io/aify).
 
 ### API
 
