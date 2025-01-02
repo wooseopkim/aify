@@ -1,0 +1,35 @@
+{
+	"name": "aify",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"lint": "biome format .",
+		"format": "biome format --write .",
+		"demo:build": "bun build ./demo/script.ts --outdir=./demo/ --minify --sourcemap=inline",
+		"demo:start": "serve -s ./demo/ -l 9999",
+		"demo": "bun run demo:build && bun run demo:start",
+		"prepare": "husky",
+		"test:unit": "bun test src",
+		"test:e2e": "playwright test",
+		"test": "bun run test:unit && bun run test:e2e"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@playwright/test": "^1.49.1",
+		"@types/bun": "latest",
+		"@types/node": "^22.10.2",
+		"husky": "^9.0.11",
+		"lint-staged": "^15.2.7",
+		"serve": "^14.2.3"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"bun": "^1.1.17",
+		"gpt-tokenizer": "^2.1.2"
+	},
+	"lint-staged": {
+		"*.{js,ts,json,html}": ["bun run format"]
+	}
+}

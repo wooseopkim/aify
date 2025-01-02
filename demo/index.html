@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>aify Demo App</title>
+    <style>
+        main {
+            max-width: 40rem;
+            margin: auto;
+        }
+
+        section {
+            display: flex;
+
+            & > input {
+                flex: 1;
+            }
+        }
+
+        progress {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section>
+            <input id="user" type="text" role="textbox">
+            <button id="send" role="button">AIFY</button>
+        </section>
+    
+        <progress role="progressbar" style="visibility: hidden"></progress>
+        <p role="paragraph" id="assistant"></p>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>
