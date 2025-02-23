@@ -36,17 +36,13 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: ./src
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
-      - run: bun pm pack --destination ..
-        working-directory: ./src
+      - run: bun pm pack --destination .
       - run: |
-          bun install --no-save ../*.tgz
+          bun install --no-save ./*.tgz
           bun run test:unit
-        working-directory: ./src
       - if: vars.ACT != 'true'
         run: ./scripts/publish.sh --npm ./*.tgz
         env:
