@@ -18,23 +18,43 @@ jobs:
         with:
           node-version-file: .node-version
       - run: bun install --frozen-lockfile
+      - run: bun run format
+      - run: bun run lint
       - run: bunx playwright install --with-deps
       - run: bun run test
-      - run: bun run lint
       - run: bun run demo:build
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./demo
   deploy-library:
-    if: github.ref == 'refs/heads/main' && vars.ACT != 'true'
+    if: github.ref == 'refs/heads/main'
     needs: [build]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
-      - run: npm publish
+        with:
+          path: ./src
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .bun-version
+      - run: bun pm pack --destination ..
+        working-directory: ./src
+      - run: |
+          bun install --no-save ../*.tgz
+          bun run test:unit
+        working-directory: ./src
+      - if: vars.ACT != 'true'
+        run: ./scripts/publish.sh --npm ./*.tgz
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - if: vars.ACT != 'true'
+        run: ./scripts/publish.sh --github ./*.tgz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-demo:
     if: github.ref == 'refs/heads/main' && vars.ACT != 'true'
     needs: [build]

@@ -1,10 +1,12 @@
 {
 	"name": "aify",
+	"version": "0.1.0",
 	"module": "src/index.ts",
+	"repository": "https://github.com/wooseopkim/aify.git",
 	"type": "module",
 	"scripts": {
-		"lint": "biome format .",
-		"format": "biome format --write .",
+		"lint": "biome lint",
+		"format": "biome format",
 		"demo:build": "bun build ./demo/script.ts --outdir=./demo/ --minify --sourcemap=inline",
 		"demo:start": "serve -s ./demo/ -l 9999",
 		"demo": "bun run demo:build && bun run demo:start",
@@ -25,5 +27,6 @@
 	"dependencies": {
 		"bun": "^1.1.42",
 		"gpt-tokenizer": "^2.1.2"
-	}
+	},
+	"files": ["src/index.ts", "demo/*.{html,js,css}"]
 }

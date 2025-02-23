@@ -6,6 +6,7 @@ mkShell {
   packages = [
     bun
     nodejs
+    jq
     act
     nixfmt-rfc-style
     nil
